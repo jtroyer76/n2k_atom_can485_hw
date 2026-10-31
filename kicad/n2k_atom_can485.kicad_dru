@@ -1,0 +1,5 @@
+(version 1)
+
+# Functional isolation: copper on the isolated RS485 side stays 1 mm from everything else.(rule "isolation_gap"
+  (constraint clearance (min 1.0mm))
+  (condition "(A.NetName == '/GNDB' || A.NetName == '/VISO' || A.NetName == '/RS485_A' || A.NetName == '/RS485_B' || A.NetName == '/RS485_T') && !(B.NetName == '/GNDB' || B.NetName == '/VISO' || B.NetName == '/RS485_A' || B.NetName == '/RS485_B' || B.NetName == '/RS485_T' || B.NetName == '' || B.NetName matches 'unconnected*')"))
