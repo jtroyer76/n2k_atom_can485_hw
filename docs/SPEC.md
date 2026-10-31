@@ -2,7 +2,7 @@
 
 Carrier board for a Seeed Studio XIAO ESP32-S3: NMEA 2000 (CAN) plus isolated RS485/RS422, powered from the NMEA 2000 drop, in its own enclosure. (The repo name dates from a first plan built on the M5Stack ATOM; see §9.)
 
-Status: 2026-10-30, design. Claims not yet checked against a datasheet, a measurement or the hardware are marked **(verify)**.
+Status: 2026-10-30, schematic drawn (ERC clean, `kicad/`, PDF in `docs/`); no layout yet. Claims not yet checked against a datasheet, a measurement or the hardware are marked **(verify)**.
 
 ## 1. Goals
 
@@ -37,8 +37,8 @@ Seeed 113991114 (plain, not Sense or Plus). Facts from Seeed's wiki (https://wik
 | D1 | GPIO2 | CAN RX |
 | D2 | GPIO3 | unused (strapping pin) |
 | D3 | GPIO4 | spare |
-| D4 | GPIO5 | I2C SDA (spare header, optional display or sensor) |
-| D5 | GPIO6 | I2C SCL |
+| D4 | GPIO5 | spare |
+| D5 | GPIO6 | spare |
 | D6 | GPIO43 | UART0 TX (debug, unused) |
 | D7 | GPIO44 | UART0 RX (debug, unused) |
 | D8 | GPIO7 | RS485 TX |
@@ -74,6 +74,7 @@ RS485 stays off UART0, so ROM boot messages never reach the RS485 line. GPIO1–
 
 - **Isolated** transceiver with its own isolated supply. Without isolation the RS422 device's ground and the NMEA 2000 network ground would be joined through this board, creating a second ground connection for the network.
 - TX/RX + driver enable for RS485; for RS422 listen-only only A/B in is used.
+- Supplies: VCC from the 5 V rail (feeds the isolated DC-DC), VCCL (logic) from the XIAO's 3.3 V. SEL tied to VISO: VISO = 5 V. ~RE tied low: receiver always on. DE has a 10 k pull-down so the driver stays off during reset.
 - Fail-safe receiver (idle bus reads as idle), or bias resistors if the part lacks it **(verify)**.
 - 120 Ω termination by solder jumper, open by default.
 - Isolated-side ground brought out to the terminal (pin 7, §5.4) for devices that need a reference.
@@ -92,7 +93,9 @@ One 7-pin 3.5 mm pluggable terminal (the board isn't limited to 24 mm wide any m
 | 6 | RS485 B |
 | 7 | RS485 isolated GND |
 
-Plus: XIAO USB-C reachable through the enclosure for flashing; optional 4-pin I2C header (3V3, GND, SDA, SCL).
+Plus: XIAO USB-C reachable through the enclosure for flashing. No other connectors.
+
+Schematic footprint: Phoenix MC 1,5/7-G-3.5 (KiCad library); the chosen part's hole pattern must match it **(verify at layout)**.
 
 ### 5.5 Parts (chosen 2026-10-30)
 
@@ -116,7 +119,8 @@ Choices:
 - **TJA1051T/3 over SN65HVD230:** the board has a 5 V rail, so the 5 V-supply part with a 3.3 V logic pin works, and its bus pins take ±58 V against the SN65HVD230's −4 to +16 V. A NET-S (12 V) wire landing on CAN-H, a likely wiring mistake, is survivable.
 - **LMR54406 over TPS560430 / LMR50410:** 45 V abs max leaves margin over the TVS clamp (32.4 V); the other two are 38 V abs max.
 - **CA-IS2092VW over ADM2587E:** higher isolation (3.75 vs 2.5 kVrms), smaller package, about a third of the price.
-- **3.3 V budget** on the XIAO's regulator (600–700 mA per Seeed): ESP32-S3 with WiFi plus the CA-IS2092VW (≤ 88 mA with 120 Ω termination) **(verify ESP32-S3 peak current)**.
+- **3.3 V budget** on the XIAO's regulator (600–700 mA per Seeed): ESP32-S3 with WiFi, plus the TJA1051 VIO and CA-IS2092VW VCCL logic pins. The transceivers' supply current comes from the 5 V rail.
+- **5 V budget** (buck, 0.6 A): XIAO via the Schottky, TJA1051 VCC, CA-IS2092VW VCC (≤ 88 mA max at 3.3 V supply with 120 Ω; its 5 V figure **(verify)**).
 - No Basic or Preferred part exists for the buck, inductor, PTC, CAN ESD, isolated RS485 or terminal, so the build pays JLCPCB's Extended-part fees.
 
 ## 6. Mechanical

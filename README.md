@@ -2,7 +2,7 @@
 
 A carrier board for the Seeed Studio XIAO ESP32-S3 that puts NMEA 2000 (CAN) and RS485/RS422 on one board, with a 3D-printed enclosure. It is powered from the NMEA 2000 drop, so one cable carries power and data. Made for gateways between NMEA 0183 devices on RS422 (for example an AIS transponder) and an NMEA 2000 network. (The name is from a first plan built on the M5Stack ATOM.)
 
-Status: design. No schematic or PCB yet. Design and open questions: [docs/SPEC.md](docs/SPEC.md).
+Status: schematic drawn ([PDF](docs/n2k_atom_can485-schematic.pdf), KiCad 10 project in `kicad/`); no PCB yet. Design and open questions: [docs/SPEC.md](docs/SPEC.md).
 
 ## Planned features
 
