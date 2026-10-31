@@ -2,7 +2,7 @@
 
 Carrier board for a Seeed Studio XIAO ESP32-S3: NMEA 2000 (CAN) plus isolated RS485/RS422, powered from the NMEA 2000 drop, in its own enclosure. (The repo name dates from a first plan built on the M5Stack ATOM; see §9.)
 
-Status: 2026-10-30, schematic drawn (ERC clean, `kicad/`, PDF in `docs/`); no layout yet. Claims not yet checked against a datasheet, a measurement or the hardware are marked **(verify)**.
+Status: 2026-10-31, schematic (ERC clean) and PCB layout v0.1 (DRC: no errors; cosmetic silkscreen and thermal-relief warnings only) done; fab files in `fab/`; not yet ordered or tested. Claims not yet checked against a datasheet, a measurement or the hardware are marked **(verify)**.
 
 ## 1. Goals
 
@@ -33,27 +33,28 @@ Seeed 113991114 (plain, not Sense or Plus). Facts from Seeed's wiki (https://wik
 
 | Pin | GPIO | Use |
 |---|---|---|
-| D0 | GPIO1 | CAN TX |
-| D1 | GPIO2 | CAN RX |
+| D0 | GPIO1 | RS485 TX |
+| D1 | GPIO2 | RS485 RX |
 | D2 | GPIO3 | unused (strapping pin) |
-| D3 | GPIO4 | spare |
+| D3 | GPIO4 | RS485 driver enable (pulled down: receive) |
 | D4 | GPIO5 | spare |
 | D5 | GPIO6 | spare |
 | D6 | GPIO43 | UART0 TX (debug, unused) |
 | D7 | GPIO44 | UART0 RX (debug, unused) |
-| D8 | GPIO7 | RS485 TX |
-| D9 | GPIO8 | RS485 RX |
-| D10 | GPIO9 | RS485 driver enable (pulled down: receive) |
+| D8 | GPIO7 | CAN TX |
+| D9 | GPIO8 | CAN RX |
+| D10 | GPIO9 | spare |
 | 5V | — | 5 V in from the carrier, through a Schottky |
 | 3V3 | — | 3.3 V for the transceivers' logic side |
 | GND | — | ground |
 
-RS485 stays off UART0, so ROM boot messages never reach the RS485 line. GPIO1–9 are "freely used" pins in the ESP32-S3 datasheet.
+RS485 stays off UART0, so ROM boot messages never reach the RS485 line. GPIO1–9 are "freely used" pins in the ESP32-S3 datasheet. The split follows the layout: with the USB-C at the board edge, D0–D6 face the RS485 side of the board and D7–D10 the CAN side.
 
 ## 4. Firmware notes
 
 - CAN through the ESP-IDF TWAI driver (NMEA2000 library with an ESP32 TWAI back end). ESP32-S3 support in the chosen back end **(verify)**.
-- RS485 on UART1, TX GPIO7, RX GPIO8, DE GPIO9 (or receive-only: leave DE low).
+- CAN: TX GPIO7, RX GPIO8.
+- RS485 on UART1: TX GPIO1, RX GPIO2, DE GPIO4 (or receive-only: leave DE low).
 
 ## 5. Circuits
 
@@ -95,7 +96,7 @@ One 7-pin 3.5 mm pluggable terminal (the board isn't limited to 24 mm wide any m
 
 Plus: XIAO USB-C reachable through the enclosure for flashing. No other connectors.
 
-Schematic footprint: Phoenix MC 1,5/7-G-3.5 (KiCad library); the chosen part's hole pattern must match it **(verify at layout)**.
+Header MAX MX15EDGRC-3.5-07P (LCSC C5188300), mating plug MX15EDGK-3.5-07P (C5188254). Footprint drawn for it (`kicad/lib/n2k_atom_can485.pretty`): Ø1.4 mm holes, 3.5 mm pitch, body 25.4 × 9.2 mm, from the family drawing MX15EDGR-3.5-XXP (the 7-pin datasheet itself wasn't downloadable) **(verify against a part)**. Pin labels are on the back silkscreen. Pins 4 (CAN-L) and 5 (RS485 A) are 3.5 mm apart, about 1.3 mm of copper between pads: the isolation is functional (ground loop), not a safety barrier.
 
 ### 5.5 Parts (chosen 2026-10-30)
 
@@ -103,7 +104,7 @@ Specs from each datasheet; stock and prices from JLCPCB/LCSC on 2026-10-30 (rech
 
 | Function | Part | LCSC | Lib | Key specs (datasheet) |
 |---|---|---|---|---|
-| Buck 12 V → 5 V | TI LMR54406DBVR, SOT-23-6 | C5219316 | E | VIN 4–36 V, abs max 45 V; 0.6 A; IQ 80 µA typ (PFM variant). 5 V: L 15 µH, COUT 22 µF/10 V, RFBT 118 k / RFBB 22.1 k (Table 8-1) |
+| Buck 12 V → 5 V | TI LMR54406DBVR, SOT-23-6 | C5219316 | E | VIN 4–36 V, abs max 45 V; 0.6 A; IQ 80 µA typ (PFM variant); VREF 0.8 V. Table 8-1 (5 V): L 15 µH, COUT 22 µF/10 V, RFBT 118 k / RFBB 22.1 k. Built with 120 k / 22 k (Basic parts): 0.8 × (1 + 120/22) = 5.16 V, under the transceivers' 5.5 V maximum |
 | Buck inductor | Sunlord SWPA5040S150MT, 15 µH, 5×5 mm | C44888 | E | Isat 2.0 A, DCR 0.112 Ω max |
 | Input fuse | BHFUSE BSMD1812-050-60V, 1812 PTC | C883142 | E | Ihold 0.5 A, Itrip 1.0 A, Vmax 60 V |
 | Input TVS | SMBJ20A (Hongjiacheng) | C19077575 | PE | VRWM 20 V, VBR 22.2–24.5 V, VC 32.4 V @ 18.5 A (below the buck's 45 V abs max) |
@@ -111,9 +112,10 @@ Specs from each datasheet; stock and prices from JLCPCB/LCSC on 2026-10-30 (rech
 | 5 V → XIAO diode | JSCJ B5819W, SOD-123 | C8598 | B | 40 V, 1 A, VF 0.6 V max @ 1 A |
 | CAN transceiver | NXP TJA1051T/3/1J, SOIC-8 | C38695 | E | VCC 4.5–5.5 V (from the 5 V rail), VIO 2.8–5.5 V (3.3 V logic); CANH/CANL ±58 V; pin 8 S has an internal pull-down (Normal mode) — tied to GND |
 | CAN ESD | Nexperia PESD2CAN,215, SOT-23 | C75176 | E | VRWM 24 V, 25 pF typ, IEC 61000-4-2 > 8 kV |
-| Isolated RS485 | Chipanalog CA-IS2092VW, SOIC-16 WB | C7422559 | E | 3.75 kVrms isolation; integrated isolated DC-DC; VCC 3.15–5.5 V (run at 3.3 V, VISO 3.3 V); 0.5 Mbps half-duplex; true fail-safe receiver; ICC at 3.3 V 17 mA typ unloaded, 88 mA max with 120 Ω |
+| Isolated RS485 | Chipanalog CA-IS2092VW, SOIC-16 WB | C7422559 | E | 3.75 kVrms isolation; integrated isolated DC-DC; VCC 3.15–5.5 V (run at 5 V, VISO 5 V), VCCL logic supply 3.3 V; 0.5 Mbps half-duplex; true fail-safe receiver; ICC at 3.3 V 17 mA typ unloaded, 88 mA max with 120 Ω |
 | Terminations | UNI-ROYAL 0603WAF1200T5E, 120 Ω 1 % | C22787 | B | via solder jumpers, open by default |
-| Terminal block | 3.5 mm pluggable, right-angle, 7-pin, header + plug | **(to choose; MAX MX15EDGRC/MX15EDGK family checked at 6-pin: C5188299 / C5188253)** | E | 300 V / 8 A (6-pin datasheet) |
+| Terminal block | MAX MX15EDGRC-3.5-07P-GN01-Cu-A header, right angle | C5188300 | E | 7 pins, 3.5 mm; plug MX15EDGK-3.5-07P (C5188254). 300 V / 8 A per the family drawing |
+| Passives | 0603/0805/1206 MLCCs and 1 % 0603 resistors | C29823, C14663, C45783, C15850, C15849, C25808, C31850, C25804, C22787 | B | values and LCSC numbers in the schematic and `fab/` BOM. C25808 (120 k) checked only against a third-party copy of JLCPCB's database **(verify)** |
 
 Choices:
 - **TJA1051T/3 over SN65HVD230:** the board has a 5 V rail, so the 5 V-supply part with a 3.3 V logic pin works, and its bus pins take ±58 V against the SN65HVD230's −4 to +16 V. A NET-S (12 V) wire landing on CAN-H, a likely wiring mistake, is survivable.
@@ -125,16 +127,19 @@ Choices:
 
 ## 6. Mechanical
 
-- Board outline set by the parts and the enclosure; target small (around 25 × 50 mm) **(to set in layout)**.
-- XIAO at one end with its USB-C at the board edge; terminal at the other end.
+- Board 32 × 64 mm, 1 mm corner radius, 2 layers, 1.6 mm. Terminal on one short edge (plug side flush with the edge), XIAO on the other with its USB-C at the edge.
+- No mounting holes: every place they fit would block the routing channels beside the XIAO. The enclosure holds the board by its edges (slots or a clamped lid).
+- Isolation: the RS485 side (terminal pins 5–7, U3's bus side, its capacitors and termination) has its own GNDB pour on both layers, separated from GND by 1.5 mm; tracks and vias of non-isolated nets stay 1 mm clear of it.
+- No copper under the XIAO (rule area): its bottom pads (JTAG, USB, battery) land on unconnected pads from Seeed's footprint.
+- Layout notes: the B.Cu layer is a near-solid ground plane; every SMD ground pad has a via to it. Track widths 0.5 mm for power, 0.4 mm for 3.3 V and VISO, 0.25 mm for signals; vias 0.6/0.3 mm. Routed by a script (grid maze router), so it is tidy but not hand-optimised: the buck converter's hot loop (C1/C2, U1, L1, C4) deserves a look in KiCad before ordering.
 - Enclosure: 3D-printed, parametric (OpenSCAD or CadQuery), from the PCB outline and the parts' STEP models. Openings for the terminal, USB-C and the XIAO's LED; mounting tabs.
 
 ## 7. Phases
 
 1. Spec and parts selection (JLCPCB stock, datasheets).
 2. Schematic, ERC clean.
-3. Layout; DRC clean; 3D check.
-4. Gerbers, BOM, placement files; order a small assembled batch.
+3. Layout; DRC clean; 3D check. **Done (v0.1).**
+4. Gerbers, BOM, placement files (`fab/`); order a small assembled batch. Before ordering, check in JLCPCB's placement preview: part rotations (SOT-23, SOIC and diode footprints often need a rotation offset), the through-hole terminal (hand-solder or pay for THT assembly), and whether the XIAO (C20467913) can be placed or must be hand-soldered.
 5. Bench test: 12 V supply, CAN on a test bus, RS422 loopback; measure current draw (LEN).
 6. Enclosure.
 
