@@ -66,7 +66,7 @@ RS485 stays off UART0, so ROM boot messages never reach the RS485 line. GPIO1–
 
 ### 5.2 CAN
 
-- Non-isolated 3.3 V CAN transceiver (bus-powered device: CAN shares NET-C as ground).
+- Non-isolated CAN transceiver, 5 V supply with 3.3 V logic (bus-powered device: CAN shares NET-C as ground).
 - ESD protection on CANH/CANL.
 - 120 Ω termination by solder jumper, open by default (a drop must not be terminated).
 
@@ -93,6 +93,31 @@ One 7-pin 3.5 mm pluggable terminal (the board isn't limited to 24 mm wide any m
 | 7 | RS485 isolated GND |
 
 Plus: XIAO USB-C reachable through the enclosure for flashing; optional 4-pin I2C header (3V3, GND, SDA, SCL).
+
+### 5.5 Parts (chosen 2026-10-30)
+
+Specs from each datasheet; stock and prices from JLCPCB/LCSC on 2026-10-30 (recheck at order time). Lib: B = Basic, PE = Preferred Extended, E = Extended.
+
+| Function | Part | LCSC | Lib | Key specs (datasheet) |
+|---|---|---|---|---|
+| Buck 12 V → 5 V | TI LMR54406DBVR, SOT-23-6 | C5219316 | E | VIN 4–36 V, abs max 45 V; 0.6 A; IQ 80 µA typ (PFM variant). 5 V: L 15 µH, COUT 22 µF/10 V, RFBT 118 k / RFBB 22.1 k (Table 8-1) |
+| Buck inductor | Sunlord SWPA5040S150MT, 15 µH, 5×5 mm | C44888 | E | Isat 2.0 A, DCR 0.112 Ω max |
+| Input fuse | BHFUSE BSMD1812-050-60V, 1812 PTC | C883142 | E | Ihold 0.5 A, Itrip 1.0 A, Vmax 60 V |
+| Input TVS | SMBJ20A (Hongjiacheng) | C19077575 | PE | VRWM 20 V, VBR 22.2–24.5 V, VC 32.4 V @ 18.5 A (below the buck's 45 V abs max) |
+| Reverse polarity | MDD SS14, SMA Schottky | C2480 | B | 40 V, 1 A, VF 0.55 V @ 1 A |
+| 5 V → XIAO diode | JSCJ B5819W, SOD-123 | C8598 | B | 40 V, 1 A, VF 0.6 V max @ 1 A |
+| CAN transceiver | NXP TJA1051T/3/1J, SOIC-8 | C38695 | E | VCC 4.5–5.5 V (from the 5 V rail), VIO 2.8–5.5 V (3.3 V logic); CANH/CANL ±58 V; pin 8 S has an internal pull-down (Normal mode) — tied to GND |
+| CAN ESD | Nexperia PESD2CAN,215, SOT-23 | C75176 | E | VRWM 24 V, 25 pF typ, IEC 61000-4-2 > 8 kV |
+| Isolated RS485 | Chipanalog CA-IS2092VW, SOIC-16 WB | C7422559 | E | 3.75 kVrms isolation; integrated isolated DC-DC; VCC 3.15–5.5 V (run at 3.3 V, VISO 3.3 V); 0.5 Mbps half-duplex; true fail-safe receiver; ICC at 3.3 V 17 mA typ unloaded, 88 mA max with 120 Ω |
+| Terminations | UNI-ROYAL 0603WAF1200T5E, 120 Ω 1 % | C22787 | B | via solder jumpers, open by default |
+| Terminal block | 3.5 mm pluggable, right-angle, 7-pin, header + plug | **(to choose; MAX MX15EDGRC/MX15EDGK family checked at 6-pin: C5188299 / C5188253)** | E | 300 V / 8 A (6-pin datasheet) |
+
+Choices:
+- **TJA1051T/3 over SN65HVD230:** the board has a 5 V rail, so the 5 V-supply part with a 3.3 V logic pin works, and its bus pins take ±58 V against the SN65HVD230's −4 to +16 V. A NET-S (12 V) wire landing on CAN-H, a likely wiring mistake, is survivable.
+- **LMR54406 over TPS560430 / LMR50410:** 45 V abs max leaves margin over the TVS clamp (32.4 V); the other two are 38 V abs max.
+- **CA-IS2092VW over ADM2587E:** higher isolation (3.75 vs 2.5 kVrms), smaller package, about a third of the price.
+- **3.3 V budget** on the XIAO's regulator (600–700 mA per Seeed): ESP32-S3 with WiFi plus the CA-IS2092VW (≤ 88 mA with 120 Ω termination) **(verify ESP32-S3 peak current)**.
+- No Basic or Preferred part exists for the buck, inductor, PTC, CAN ESD, isolated RS485 or terminal, so the build pays JLCPCB's Extended-part fees.
 
 ## 6. Mechanical
 

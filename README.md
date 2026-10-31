@@ -6,7 +6,7 @@ Status: design. No schematic or PCB yet. Design and open questions: [docs/SPEC.m
 
 ## Planned features
 
-- NMEA 2000 / CAN transceiver, 3.3 V logic, on the ESP32-S3's TWAI controller.
+- NMEA 2000 / CAN transceiver (±58 V bus pins), 3.3 V logic, on the ESP32-S3's TWAI controller.
 - Isolated RS485/RS422 transceiver, so the RS422 device's ground stays separate from the NMEA 2000 network ground.
 - 12 V NMEA 2000 network power → 5 V for the XIAO, with reverse-polarity, overcurrent and surge protection.
 - Optional 120 Ω termination on each bus, off by default.
