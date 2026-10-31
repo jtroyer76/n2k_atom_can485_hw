@@ -1,6 +1,6 @@
 # n2k_atom_can485_hw
 
-Base board for the M5Stack ATOM in the Atomic base format: NMEA 2000 (CAN) and RS485/RS422, powered from the NMEA 2000 drop. Start with [README.md](README.md); the design is in [docs/SPEC.md](docs/SPEC.md).
+Carrier board for the Seeed Studio XIAO ESP32-S3: NMEA 2000 (CAN) and RS485/RS422, powered from the NMEA 2000 drop, with a 3D-printed enclosure. Start with [README.md](README.md); the design is in [docs/SPEC.md](docs/SPEC.md).
 
 ## Rules
 
@@ -14,4 +14,4 @@ Base board for the M5Stack ATOM in the Atomic base format: NMEA 2000 (CAN) and R
 - **Never guess** pinouts, ratings, footprints or dimensions; check the datasheet, the reference schematic or a measurement, or say it's unknown. Mark unchecked claims in the SPEC **(verify)**.
 - **Search the whole repo** for related references when changing something.
 - **Knowledge goes in the repo,** not the assistant's local memory: the owner works on several machines.
-- Own design: draw from datasheets and the facts recorded in the SPEC, don't copy M5Stack's design files.
+- Own design: draw from datasheets and the facts recorded in the SPEC. Seeed's XIAO symbol and footprint are used as published.
