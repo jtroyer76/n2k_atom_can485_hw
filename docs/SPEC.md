@@ -2,7 +2,7 @@
 
 Carrier board for a Seeed Studio XIAO ESP32-S3: NMEA 2000 (CAN) plus isolated RS485/RS422, powered from the NMEA 2000 drop, in its own enclosure. (The repo name dates from a first plan built on the M5Stack ATOM; see §9.)
 
-Status: 2026-10-31, schematic (ERC clean) and PCB layout v0.1 (DRC: no errors; cosmetic silkscreen and thermal-relief warnings only) done; fab files in `fab/`; not yet ordered or tested. Claims not yet checked against a datasheet, a measurement or the hardware are marked **(verify)**.
+Status: 2026-11-02, schematic (ERC clean) and PCB layout v0.1 (DRC: no errors; cosmetic silkscreen and thermal-relief warnings only) done; fab files in `fab/`. v0.1 ordered from JLCPCB (2 of 5 boards assembled); not yet built or tested. Claims not yet checked against a datasheet, a measurement or the hardware are marked **(verify)**.
 
 ## 1. Goals
 
@@ -141,7 +141,7 @@ Choices:
 1. Spec and parts selection (JLCPCB stock, datasheets).
 2. Schematic, ERC clean.
 3. Layout; DRC clean; 3D check. **Done (v0.1).**
-4. Gerbers, BOM, placement files (`fab/`); order a small assembled batch. J1 (terminal) and U4 (XIAO) are hand-soldered and left out of the JLCPCB BOM and placement files; JLCPCB stocks both, but its preview placed them wrongly and both are easy by hand. JLCPCB's part models need rotation corrections on top of KiCad's angles, found in its placement preview (2026-11-02): U1 +180°, U2 −90°, U3 −90°, D4 +180°; D1–D3 needed none. The CPL in `fab/` includes them. Re-check pin 1 and diode bands in the preview on every order, since the correction depends on JLCPCB's model for each part.
+4. Gerbers, BOM, placement files (`fab/`); order a small assembled batch. **Ordered (v0.1), 2026-11-02.** J1 (terminal) and U4 (XIAO) are hand-soldered and left out of the JLCPCB BOM and placement files; JLCPCB stocks both, but its preview placed them wrongly and both are easy by hand. JLCPCB's part models need rotation corrections on top of KiCad's angles, found in its placement preview (2026-11-02): U1 +180°, U2 −90°, U3 −90°, D4 +180°; D1–D3 needed none. The CPL in `fab/` includes them. Re-check pin 1 and diode bands in the preview on every order, since the correction depends on JLCPCB's model for each part.
 5. Bench test: 12 V supply, CAN on a test bus, RS422 loopback; measure current draw (LEN).
 6. Enclosure.
 
