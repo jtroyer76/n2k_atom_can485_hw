@@ -3351,7 +3351,7 @@
 (uuid "7340dec3-ec52-55c6-8902-5fd8c3955650")
 (property "Reference" "U4" (at 101.60 124.46 0) (effects (font (size 1.27 1.27))))
 (property "Value" "XIAO ESP32-S3" (at 101.60 176.53 0) (effects (font (size 1.27 1.27))))
-(property "Footprint" "Seeed_Studio_XIAO_Series:XIAO-ESP32-S3-SMD" (at 101.60 142.24 0) (effects (font (size 1.27 1.27)) (hide yes)))
+(property "Footprint" "n2k_atom_can485:XIAO-ESP32-S3-SMD-HandSolder" (at 101.60 142.24 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "Datasheet" "" (at 101.60 142.24 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "LCSC" "C20467913" (at 101.60 142.24 0) (effects (font (size 1.27 1.27)) (hide yes)))
 (property "MPN" "Seeed 113991114" (at 101.60 142.24 0) (effects (font (size 1.27 1.27)) (hide yes)))

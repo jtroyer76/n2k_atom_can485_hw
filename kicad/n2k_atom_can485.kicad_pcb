@@ -1240,7 +1240,7 @@
 			)
 		)
 	)
-	(footprint "Seeed_Studio_XIAO_Series:XIAO-ESP32-S3-SMD"
+	(footprint "n2k_atom_can485:XIAO-ESP32-S3-SMD-HandSolder"
 		(layer "F.Cu")
 		(uuid "3cc0b6c7-8c10-43cf-8ec2-dc87b23fe698")
 		(at 124.89 141.453 180)
@@ -27588,7 +27588,7 @@
 		(pad "1" smd roundrect
 			(at 0.835 -18.12 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/RS485_DI")
 			(solder_mask_margin 0.0508)
@@ -27598,7 +27598,7 @@
 		(pad "2" smd roundrect
 			(at 0.835 -15.58 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/RS485_RO")
 			(solder_mask_margin 0.0508)
@@ -27608,7 +27608,7 @@
 		(pad "3" smd roundrect
 			(at 0.835 -13.04 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-D2-Pad3)")
 			(solder_mask_margin 0.0508)
@@ -27618,7 +27618,7 @@
 		(pad "4" smd roundrect
 			(at 0.835 -10.5 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/RS485_DE")
 			(solder_mask_margin 0.0508)
@@ -27628,7 +27628,7 @@
 		(pad "5" smd roundrect
 			(at 0.835 -7.96 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-D4-Pad5)")
 			(solder_mask_margin 0.0508)
@@ -27638,7 +27638,7 @@
 		(pad "6" smd roundrect
 			(at 0.835 -5.42 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-D5-Pad6)")
 			(solder_mask_margin 0.0508)
@@ -27648,7 +27648,7 @@
 		(pad "7" smd roundrect
 			(at 0.835 -2.88 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-D6-Pad7)")
 			(solder_mask_margin 0.0508)
@@ -27658,7 +27658,7 @@
 		(pad "8" smd roundrect
 			(at 17 -2.88 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-D7-Pad8)")
 			(solder_mask_margin 0.0508)
@@ -27668,7 +27668,7 @@
 		(pad "9" smd roundrect
 			(at 17 -5.42 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/CAN_TX")
 			(solder_mask_margin 0.0508)
@@ -27678,7 +27678,7 @@
 		(pad "10" smd roundrect
 			(at 17 -7.96 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/CAN_RX")
 			(solder_mask_margin 0.0508)
@@ -27688,7 +27688,7 @@
 		(pad "11" smd roundrect
 			(at 17 -10.5 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-D10-Pad11)")
 			(solder_mask_margin 0.0508)
@@ -27698,7 +27698,7 @@
 		(pad "12" smd roundrect
 			(at 17 -13.04 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/+3V3")
 			(solder_mask_margin 0.0508)
@@ -27708,7 +27708,7 @@
 		(pad "13" smd roundrect
 			(at 17 -15.58 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/GND")
 			(solder_mask_margin 0.0508)
@@ -27718,7 +27718,7 @@
 		(pad "14" smd roundrect
 			(at 17 -18.12 180)
 			(size 2.75 2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/XIAO_5V")
 			(solder_mask_margin 0.0508)
@@ -27728,63 +27728,63 @@
 		(pad "15" smd circle
 			(at 7.62 -19.132 180)
 			(size 1.7 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(net "unconnected-(U4-MTDI-Pad15)")
 			(uuid "aa129ff5-a929-43a5-abf8-33dec643f8b6")
 		)
 		(pad "16" smd circle
 			(at 10.16 -19.132 180)
 			(size 1.7 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(net "unconnected-(U4-MTDO-Pad16)")
 			(uuid "b9207220-6fd0-483b-b969-86d371f62f7d")
 		)
 		(pad "17" smd circle
 			(at 7.62 -16.592 180)
 			(size 1.7 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(net "unconnected-(U4-EN-Pad17)")
 			(uuid "cb6f5b38-12a2-4fb3-aab6-c67edef0332e")
 		)
 		(pad "18" smd circle
 			(at 10.16 -16.592 180)
 			(size 1.7 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(net "unconnected-(U4-GND-Pad18)")
 			(uuid "79db4866-61de-4322-b647-03d5f84b29e9")
 		)
 		(pad "19" smd circle
 			(at 7.62 -14.052 180)
 			(size 1.7 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(net "unconnected-(U4-MTMS-Pad19)")
 			(uuid "f6c85bd8-d942-404e-8692-070b5bf4323c")
 		)
 		(pad "20" smd circle
 			(at 10.16 -14.052 180)
 			(size 1.7 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(net "unconnected-(U4-MTCK-Pad20)")
 			(uuid "5e0708fd-1ce2-48a5-9709-3320caadcd9d")
 		)
 		(pad "21" smd circle
 			(at 7.62 -11.512 180)
 			(size 1.7 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(net "unconnected-(U4-USB_DN-Pad21)")
 			(uuid "776840a6-0b9d-4d54-a805-a3fd5ea7dd40")
 		)
 		(pad "22" smd circle
 			(at 10.16 -11.512 180)
 			(size 1.7 1.7)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(net "unconnected-(U4-USB_DP-Pad22)")
 			(uuid "b5f4f1ad-4962-4152-929c-203bc577640d")
 		)
 		(pad "23" smd roundrect
 			(at 4.445 -10.882)
 			(size 2.5 1.1)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-VBAT-Pad23)")
 			(thermal_bridge_angle 45)
@@ -27793,7 +27793,7 @@
 		(pad "24" smd roundrect
 			(at 4.445 -12.787)
 			(size 2.5 1.1)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-GND-Pad24)")
 			(thermal_bridge_angle 45)
@@ -27802,7 +27802,7 @@
 		(pad "25" smd roundrect
 			(at 10.01 -8.5 180)
 			(size 2.75 2.5)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(U4-PAD-Pad25)")
 			(thermal_bridge_angle 45)

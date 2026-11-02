@@ -2,5 +2,6 @@
 
 - `n2k_atom_can485.kicad_sym`: symbols drawn for this board (CA-IS2092VW, from the Chipanalog datasheet v1.05, Table 6-1).
 - `Seeed_Studio_XIAO_Series.kicad_sym` (symbol `XIAO-ESP32-S3-SMD`) and `Seeed_Studio_XIAO_Series.pretty/XIAO-ESP32-S3-SMD.kicad_mod`: copied unchanged from Seeed Studio's [OPL_Kicad_Library](https://github.com/Seeed-Studio/OPL_Kicad_Library), licensed CC BY-SA 4.0.
+- `n2k_atom_can485.pretty/XIAO-ESP32-S3-SMD-HandSolder.kicad_mod`: Seeed's `XIAO-ESP32-S3-SMD` footprint with the F.Paste layer removed from every pad (the module is hand-soldered, so the stencil must leave its pads bare); otherwise unchanged. CC BY-SA 4.0, as the original.
 
 Everything else comes from the KiCad 10 standard libraries.

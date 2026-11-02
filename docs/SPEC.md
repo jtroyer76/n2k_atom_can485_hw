@@ -27,7 +27,7 @@ Seeed 113991114 (plain, not Sense or Plus). Facts from Seeed's wiki (https://wik
 - **5V pin is USB VBUS directly** (no diode on the XIAO). Seeed: "You can also use this as a voltage input but you must have some sort of diode … between your external power source and this pin". The carrier feeds it through a Schottky (§5.1).
 - 3V3 pin: output of the XIAO's regulator (SGM6029). Seeed's wiki says 700 mA, its schematic says 600 mA; the carrier's 3.3 V load is small either way **(verify total)**.
 - User LED on GPIO21 (active low); BOOT button on GPIO0; RESET on EN. Strapping pins GPIO0, 3, 45, 46; only GPIO3 (D2) reaches an edge pin.
-- JLCPCB part C20467913 (Extended). Whether JLCPCB's assembly line places it **(verify)**; otherwise hand-soldered on its castellations.
+- JLCPCB part C20467913 (Extended). Hand-soldered on its castellations, not placed by JLCPCB: it uses `n2k_atom_can485:XIAO-ESP32-S3-SMD-HandSolder`, Seeed's footprint with the paste layer removed, so the stencil leaves no solder bumps under the module.
 
 ### 3.1 Pin use
 
@@ -130,7 +130,7 @@ Choices:
 - Board 32 × 64 mm, 1 mm corner radius, 2 layers, 1.6 mm. Terminal on one short edge (plug side flush with the edge), XIAO on the other with its USB-C at the edge.
 - No mounting holes: every place they fit would block the routing channels beside the XIAO. The enclosure holds the board by its edges (slots or a clamped lid).
 - Isolation: the RS485 side (terminal pins 5–7, U3's bus side, its capacitors and termination) has its own GNDB pour on both layers, separated from GND by 1.5 mm; tracks and vias of non-isolated nets stay 1 mm clear of it. A custom DRC rule (`kicad/n2k_atom_can485.kicad_dru`, `isolation_gap`) enforces the 1 mm, so every DRC run checks it.
-- No copper under the XIAO (rule area): its bottom pads (JTAG, USB, battery) land on unconnected pads from Seeed's footprint.
+- No copper under the XIAO (rule area): its bottom pads (JTAG, USB, battery) land on unconnected pads from Seeed's footprint (no paste on them, see §3).
 - Layout notes: the B.Cu layer is a near-solid ground plane; every SMD ground pad has a via to it. Track widths 0.5 mm for power, 0.4 mm for 3.3 V and VISO, 0.25 mm for signals; vias 0.6/0.3 mm. Routed by a script (grid maze router), so it is tidy but not hand-optimised: the buck converter's hot loop (C1/C2, U1, L1, C4) deserves a look in KiCad before ordering.
 - Routing cross-check (v0.1): the same placement was autorouted with Freerouting 2.5.0, with only B.Cu given as the ground plane, and passed DRC and schematic parity. The script routing was kept. It puts a ground via 0.3–0.5 mm from every capacitor's ground pad; Freerouting's nearest vias were 1.1–8.5 mm away, with ground run as tracks on F.Cu. Freerouting's only advantage was neater 45° pad entries. The script routing had 110 short off-angle jogs from the routing grid to off-grid pad centres. Each lay wholly inside its pad, so it was invisible in the copper. These and other in-pad stubs (138 segments) are now removed, so every track ends on the grid inside its pad. The buck input capacitors' distance to U1 (C2 about 3 mm, C1 about 5.6 mm, pad to pad) is set by placement, not routing.
 - Enclosure: 3D-printed, parametric (OpenSCAD or CadQuery), from the PCB outline and the parts' STEP models. Openings for the terminal, USB-C and the XIAO's LED; mounting tabs.
@@ -140,7 +140,7 @@ Choices:
 1. Spec and parts selection (JLCPCB stock, datasheets).
 2. Schematic, ERC clean.
 3. Layout; DRC clean; 3D check. **Done (v0.1).**
-4. Gerbers, BOM, placement files (`fab/`); order a small assembled batch. Before ordering, check in JLCPCB's placement preview: part rotations (SOT-23, SOIC and diode footprints often need a rotation offset), the through-hole terminal (hand-solder or pay for THT assembly), and whether the XIAO (C20467913) can be placed or must be hand-soldered.
+4. Gerbers, BOM, placement files (`fab/`); order a small assembled batch. J1 (terminal) and U4 (XIAO) are hand-soldered and left out of the JLCPCB BOM and placement files; JLCPCB stocks both, but its preview placed them wrongly and both are easy by hand. Before ordering, check part rotations in JLCPCB's placement preview (SOT-23, SOIC and diode footprints often need a rotation offset).
 5. Bench test: 12 V supply, CAN on a test bus, RS422 loopback; measure current draw (LEN).
 6. Enclosure.
 
