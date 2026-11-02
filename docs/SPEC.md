@@ -141,7 +141,7 @@ Choices:
 1. Spec and parts selection (JLCPCB stock, datasheets).
 2. Schematic, ERC clean.
 3. Layout; DRC clean; 3D check. **Done (v0.1).**
-4. Gerbers, BOM, placement files (`fab/`); order a small assembled batch. J1 (terminal) and U4 (XIAO) are hand-soldered and left out of the JLCPCB BOM and placement files; JLCPCB stocks both, but its preview placed them wrongly and both are easy by hand. Before ordering, check part rotations in JLCPCB's placement preview (SOT-23, SOIC and diode footprints often need a rotation offset).
+4. Gerbers, BOM, placement files (`fab/`); order a small assembled batch. J1 (terminal) and U4 (XIAO) are hand-soldered and left out of the JLCPCB BOM and placement files; JLCPCB stocks both, but its preview placed them wrongly and both are easy by hand. JLCPCB's part models need rotation corrections on top of KiCad's angles, found in its placement preview (2026-11-02): U1 +180°, U2 −90°, U3 −90°, D4 +180°; D1–D3 needed none. The CPL in `fab/` includes them. Re-check pin 1 and diode bands in the preview on every order, since the correction depends on JLCPCB's model for each part.
 5. Bench test: 12 V supply, CAN on a test bus, RS422 loopback; measure current draw (LEN).
 6. Enclosure.
 
