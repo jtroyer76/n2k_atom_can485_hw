@@ -115,7 +115,7 @@ Specs from each datasheet; stock and prices from JLCPCB/LCSC on 2026-10-30 (rech
 | Isolated RS485 | Chipanalog CA-IS2092VW, SOIC-16 WB | C7422559 | E | 3.75 kVrms isolation; integrated isolated DC-DC; VCC 3.15–5.5 V (run at 5 V, VISO 5 V), VCCL logic supply 3.3 V; 0.5 Mbps half-duplex; true fail-safe receiver; ICC at 3.3 V 17 mA typ unloaded, 88 mA max with 120 Ω |
 | Terminations | UNI-ROYAL 0603WAF1200T5E, 120 Ω 1 % | C22787 | B | via solder jumpers, open by default |
 | Terminal block | MAX MX15EDGRC-3.5-07P-GN01-Cu-A header, right angle | C5188300 | E | 7 pins, 3.5 mm; plug MX15EDGK-3.5-07P (C5188254). 300 V / 8 A per the family drawing |
-| Passives | 0603/0805/1206 MLCCs and 1 % 0603 resistors | C29823, C14663, C45783, C15850, C15849, C25808, C31850, C25804, C22787 | B | values and LCSC numbers in the schematic and `fab/` BOM. C25808 (120 k) checked only against a third-party copy of JLCPCB's database **(verify)** |
+| Passives | 0603/0805/1206 MLCCs and 1 % 0603 resistors | C29823, C14663, C45783, C15850, C15849, C25808, C31850, C25804, C22787 | B | values and LCSC numbers in the schematic and `fab/` BOM. C25808 confirmed as 120 kΩ 1 % in JLCPCB's BOM view (2026-11-02) |
 
 Choices:
 - **TJA1051T/3 over SN65HVD230:** the board has a 5 V rail, so the 5 V-supply part with a 3.3 V logic pin works, and its bus pins take ±58 V against the SN65HVD230's −4 to +16 V. A NET-S (12 V) wire landing on CAN-H, a likely wiring mistake, is survivable.
