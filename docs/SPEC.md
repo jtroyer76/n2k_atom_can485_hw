@@ -27,6 +27,7 @@ Seeed 113991114 (plain, not Sense or Plus). Facts from Seeed's wiki (https://wik
 - **5V pin is USB VBUS directly** (no diode on the XIAO). Seeed: "You can also use this as a voltage input but you must have some sort of diode … between your external power source and this pin". The carrier feeds it through a Schottky (§5.1).
 - 3V3 pin: output of the XIAO's regulator (SGM6029). Seeed's wiki says 700 mA, its schematic says 600 mA; the carrier's 3.3 V load is small either way **(verify total)**.
 - User LED on GPIO21 (active low); BOOT button on GPIO0; RESET on EN. Strapping pins GPIO0, 3, 45, 46; only GPIO3 (D2) reaches an edge pin.
+- Indicators and buttons (v0.1): the carrier adds none. Firmware uses the XIAO's user LED for status (blink patterns) and BOOT (GPIO0, readable once running) as its only button. Separate status/CAN/RS485 LEDs were considered and deferred; free pins D4–D7 and D10 remain for them.
 - JLCPCB part C20467913 (Extended). Hand-soldered on its castellations, not placed by JLCPCB: it uses `n2k_atom_can485:XIAO-ESP32-S3-SMD-HandSolder`, Seeed's footprint with the paste layer removed, so the stencil leaves no solder bumps under the module.
 
 ### 3.1 Pin use
