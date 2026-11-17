@@ -5,3 +5,6 @@
 _autosave-*
 fp-info-cache
 *.bak
+
+# PlatformIO
+.pio/

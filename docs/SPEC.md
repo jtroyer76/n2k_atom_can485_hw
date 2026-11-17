@@ -27,7 +27,7 @@ Seeed 113991114 (plain, not Sense or Plus). Facts from Seeed's wiki (https://wik
 - **5V pin is USB VBUS directly** (no diode on the XIAO). Seeed: "You can also use this as a voltage input but you must have some sort of diode … between your external power source and this pin". The carrier feeds it through a Schottky (§5.1).
 - 3V3 pin: output of the XIAO's regulator (SGM6029). Seeed's wiki says 700 mA, its schematic says 600 mA; the carrier's 3.3 V load is small either way **(verify total)**.
 - User LED on GPIO21 (active low); BOOT button on GPIO0; RESET on EN. Strapping pins GPIO0, 3, 45, 46; only GPIO3 (D2) reaches an edge pin.
-- Indicators and buttons (v0.1): the carrier adds none. Firmware uses the XIAO's user LED for status (blink patterns) and BOOT (GPIO0, readable once running) as its only button. Separate status/CAN/RS485 LEDs were considered and deferred; free pins D4–D7 and D10 remain for them.
+- Indicators and buttons (v0.1): the carrier adds none. Firmware uses the XIAO's user LED for status (blink patterns). The XIAO's BOOT and RESET buttons are too small to use in practice (owner, 2026-11-17), so firmware must not need them: keep USB-Serial/JTAG mode (`ARDUINO_USB_MODE=1`, the PlatformIO board default) so esptool resets into the bootloader over USB (confirmed 2026-11-17), and give any button function (for example a settings reset) another route, such as the web page or USB serial. Separate status/CAN/RS485 LEDs were considered and deferred; free pins D4–D7 and D10 remain for them.
 - JLCPCB part C20467913 (Extended). Hand-soldered on its castellations, not placed by JLCPCB: it uses `n2k_atom_can485:XIAO-ESP32-S3-SMD-HandSolder`, Seeed's footprint with the paste layer removed, so the stencil leaves no solder bumps under the module.
 
 ### 3.1 Pin use
@@ -142,7 +142,7 @@ Choices:
 2. Schematic, ERC clean.
 3. Layout; DRC clean; 3D check. **Done (v0.1).**
 4. Gerbers, BOM, placement files (`fab/`); order a small assembled batch. **Ordered (v0.1), 2026-11-02.** J1 (terminal) and U4 (XIAO) are hand-soldered and left out of the JLCPCB BOM and placement files; JLCPCB stocks both, but its preview placed them wrongly and both are easy by hand. JLCPCB's part models need rotation corrections on top of KiCad's angles, found in its placement preview (2026-11-02): U1 +180°, U2 −90°, U3 −90°, D4 +180°; D1–D3 needed none. The CPL in `fab/` includes them. Re-check pin 1 and diode bands in the preview on every order, since the correction depends on JLCPCB's model for each part.
-5. Bench test: 12 V supply, CAN on a test bus, RS422 loopback; measure current draw (LEN).
+5. Bench test: 12 V supply, CAN on a test bus, RS422 loopback; measure current draw (LEN). Test firmware in [`firmware/bringup/`](../firmware/bringup/README.md). **2026-11-17, first board, USB only:** flashes over USB without the buttons and runs; CAN self-test and RS485 echo fail as expected with the 5 V rail unpowered. 12 V test next.
 6. Enclosure. **Drawn (v0.1), not yet printed.**
 
 ## 8. Sources
