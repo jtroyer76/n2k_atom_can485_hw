@@ -16,7 +16,7 @@ Ready-to-print STLs: [`n2k_atom_can485_case-base.stl`](n2k_atom_can485_case-base
   - Terminal pins: `+` NET-S, `-` NET-C, `H` CAN-H, `L` CAN-L, `A`, `B`, `G` RS485 isolated ground.
   - Holes: BOOT, LED and RST.
 - **Mounting:** two side tabs with 4.5 mm holes (set `mount_tabs = false` to leave them off).
-- **Size:** 36.5 mm wide (44.3 over the screw bosses, 56.5 over the tabs), 66.7 mm long over the corner hooks, 16.3 mm high.
+- **Size:** 36.5 mm wide (46.6 over the screw bosses, 56.5 over the tabs), 66.7 mm long over the corner hooks, 16.3 mm high.
 
 ## Dimensions used
 
@@ -31,7 +31,7 @@ Ready-to-print STLs: [`n2k_atom_can485_case-base.stl`](n2k_atom_can485_case-base
 
 ## Hardware
 
-- 4 × M2.5 × 10 screws, head up to 5.5 mm across, from below into the lid. The lid has 2.2 mm pilot holes for thread-forming into the plastic; for heat-set inserts, set `screw_pilot` to the insert's hole size.
+- 4 × M2.6 × 8 screws (JIS size, common in electronics), head up to 6 mm across, from below into the lid: 3.2 mm of base under the head, about 4.8 mm into the lid. The lid has 2.2 mm pilot holes, 8 mm deep, for thread-forming into the plastic; screws longer than about 11 mm bottom out. For heat-set inserts, set `screw_pilot` to the insert's hole size.
 - 2 × M4 or #8 screws through the tabs to mount it.
 
 ## Print

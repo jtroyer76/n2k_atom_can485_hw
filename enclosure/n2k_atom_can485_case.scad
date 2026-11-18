@@ -33,14 +33,14 @@ rib = 0.8;         // lid ribs press on the board this far in from its long edge
 rib_h = 1.0;
 hook_t = 1.2;      // corner hooks past the board ends hold it in Y
 
-/* [Screws: M2.5 x 10 from below into the lid] */
+/* [Screws: M2.6 x 8 from below into the lid, heads up to 6 mm] */
 screw_clear = 2.9;
-screw_head_d = 5.5;
+screw_head_d = 6.5;
 screw_head_z = 3.0;  // counterbore depth from the bottom face
 screw_pilot = 2.2;   // thread-forming into the lid; use the insert's hole size for heat-set inserts
 screw_depth = 8;
-boss_d = 7;
-boss_out = 2.4;      // boss centre outside the board edge
+boss_d = 8.5;        // about 1 mm of wall around the counterbore
+boss_out = 2.8;      // boss centre outside the board edge
 boss_y = [5, 59];
 
 /* [Mounting tabs] */
